@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "```\r backend/\r ├── models/                 # Mongoose schemas\r │   ├── Admin.js           # Admin user model with email & password\r │   ├── PasswordReset.js   # Password reset tokens\r │   ├── Enquiry.js         # Customer enquiries\r │   ├── Bill.js            # Invoices & bills\r │   └── Product.js         # Products catalog\r │\r ├── routes/                 # API endpoints\r │   ├── auth.js            # Authentication (login, signup, password reset)\r │   ├── enquiries.js       # Enquiry CRUD operations\r │   ├── bills.js           # Bill/Invoice management\r │   ├── products.js        # Product management\r │   └── dashboard.js       # Admin dashboard stats\r │\r ├── middleware/             # Express middleware\r │   └── authMiddleware.js  # JWT authentication & authorization\r │\r ├── controllers/            # Business logic (optional - for future expansion)\r │   └── (placeholder)\r │\r └── server.js              # Express app & server setup",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.4.1",
+    "pdfkit": "^0.18.0"
+  }
+}
