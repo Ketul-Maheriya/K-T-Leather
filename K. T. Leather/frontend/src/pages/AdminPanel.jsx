@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { styles } from "../styles/theme";
 import { generateBillHTML } from "../utils/billGenerator";
 import { PRODUCTS } from "../constants/data";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export function AdminPanel({ onLogin, onLogout }) {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -9,6 +10,8 @@ export function AdminPanel({ onLogin, onLogout }) {
   const [user, setUser] = useState(""); const [pass, setPass] = useState("");
   const [loginErr, setLoginErr] = useState("");
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
   const [resetToken, setResetToken] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -199,8 +202,18 @@ export function AdminPanel({ onLogin, onLogout }) {
           <>
             {loginErr && <p style={{ color: "#c00", fontSize: 13, marginBottom: 10, background: "#fee", padding: "8px 12px", borderRadius: 6 }}>{loginErr}</p>}
             <input id="admin-username" style={styles.input} placeholder="Username" value={user} onChange={e => setUser(e.target.value)} />
-            <input id="admin-password" style={{ ...styles.input, marginTop: 12 }} type="password" placeholder="Password" value={pass} onChange={e => setPass(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && login()} />
+            <div style={{ position: "relative", width: "100%", marginTop: 12 }}>
+              <input id="admin-password" style={{ ...styles.input, width: "100%", marginTop: 0, paddingRight: 40, boxSizing: "border-box" }} type={showPassword ? "text" : "password"} placeholder="Password" value={pass} onChange={e => setPass(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && login()} />
+              <button 
+                type="button" 
+                onClick={() => setShowPassword(!showPassword)}
+                style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", fontSize: 18, padding: 0, color: "#666", display: "flex", alignItems: "center" }}
+                title={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
             <button id="admin-login-btn" style={{ ...styles.btnPrimary, width: "100%", marginTop: 16 }} onClick={login}>Login →</button>
             <p style={{ fontSize: 12, color: "#5c2d09", marginTop: 12, textAlign: "center", cursor: "pointer", textDecoration: "underline" }} onClick={() => setShowForgotPassword(true)}>
               Forgot Password?
@@ -221,7 +234,17 @@ export function AdminPanel({ onLogin, onLogout }) {
               <>
                 <p style={{ fontSize: 13, color: "#888", marginBottom: 12 }}>Enter the reset token from your email and your new password.</p>
                 <input id="reset-token" style={styles.input} placeholder="Reset Token" value={resetToken} onChange={e => setResetToken(e.target.value)} />
-                <input id="reset-newpass" style={{ ...styles.input, marginTop: 12 }} type="password" placeholder="New Password (min 6 chars)" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                <div style={{ position: "relative", width: "100%", marginTop: 12 }}>
+                  <input id="reset-newpass" style={{ ...styles.input, width: "100%", marginTop: 0, paddingRight: 40, boxSizing: "border-box" }} type={showNewPassword ? "text" : "password"} placeholder="New Password (min 6 chars)" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                  <button 
+                    type="button" 
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                    style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", fontSize: 18, padding: 0, color: "#666", display: "flex", alignItems: "center" }}
+                    title={showNewPassword ? "Hide password" : "Show password"}
+                  >
+                    {showNewPassword ? <FiEyeOff /> : <FiEye />}
+                  </button>
+                </div>
                 <button style={{ ...styles.btnPrimary, width: "100%", marginTop: 16 }} onClick={submitPasswordReset}>Reset Password →</button>
               </>
             )}
