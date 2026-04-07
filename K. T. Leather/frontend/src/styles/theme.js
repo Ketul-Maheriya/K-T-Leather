@@ -7,7 +7,18 @@ export const styles = {
   nav: { position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, background: C.dark, borderBottom: `2px solid ${C.brown}`, height: 64 },
   navInner: { maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: "100%" },
   navBrand: { display: "flex", alignItems: "center", gap: 12, cursor: "pointer" },
-  navLogo: { width: 40, height: 40, background: "transparent", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 16, borderRadius: 6, fontFamily: "Georgia, serif" },
+  // navLogo: { width: 40, height: 40, background: "transparent", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 16, borderRadius: 6, fontFamily: "Georgia, serif" },
+  navLogo: {
+  width: 64,              // bigger size
+  height: 64,
+  background: "rgba(255,255,255,0.08)", // subtle highlight
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  borderRadius: 8,
+  zIndex: 1000,           // ensures logo sits above other elements
+}
+
   navName: { color: "#fff", fontWeight: 700, fontSize: 16, fontFamily: "'Playfair Display', Georgia, serif" },
   navSub: { color: C.gold, fontSize: 11 },
   navLinks: { display: "flex", gap: 4, alignItems: "center" },
