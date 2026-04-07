@@ -17,7 +17,7 @@ export const styles = {
   justifyContent: "center",
   borderRadius: 8,
   zIndex: 1000,           // ensures logo sits above other elements
-}
+  },
 
   navName: { color: "#fff", fontWeight: 700, fontSize: 16, fontFamily: "'Playfair Display', Georgia, serif" },
   navSub: { color: C.gold, fontSize: 11 },
