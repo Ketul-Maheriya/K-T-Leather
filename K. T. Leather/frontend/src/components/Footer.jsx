@@ -6,7 +6,9 @@ export function Footer({ setPage }) {
     <footer style={styles.footer}>
       <div style={styles.footerInner}>
         <div style={styles.footerBrand}>
-          <div style={styles.footerLogo}>KT</div>
+          <div style={styles.footerLogo}>
+            <img src="/logo.png" alt="KT Logo" style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "inherit" }} />
+          </div>
           <div style={styles.footerName}>K.T. Leather Store</div>
           <div style={styles.footerSub}>Est. 1965 · Ahmedabad, Gujarat</div>
           <p style={styles.footerDesc}>Trusted supplier of corporate uniforms, safety equipment, leather, and gifting solutions for 60+ years.</p>

@@ -16,7 +16,9 @@ export function Navbar({ page, setPage, adminLoggedIn }) {
     <nav style={styles.nav}>
       <div style={styles.navInner}>
         <div style={styles.navBrand} onClick={() => setPage("home")}>
-          <div style={styles.navLogo}>KT</div>
+          <div style={styles.navLogo}>
+            <img src="/logo.png" alt="KT Logo" style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "inherit" }} />
+          </div>
           <div>
             <div style={styles.navName}>K.T. Leather Store</div>
             <div style={styles.navSub}>Est. 1965 · Ahmedabad</div>

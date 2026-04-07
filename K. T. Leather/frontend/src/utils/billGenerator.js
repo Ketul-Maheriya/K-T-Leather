@@ -33,6 +33,7 @@ export function generateBillHTML(billData) {
 </style></head>
 <body>
 <div class="header">
+  <img src="${window.location.origin}/logo.png" alt="KT Logo" style="height: 60px; margin-bottom: 12px; object-fit: contain;" />
   <div class="co-name">K.T. LEATHER STORE</div>
   <div class="co-sub">09/SF, Vaibhav Laxmi Complex, Nr. H.B. Kapadia School, Shahibaug, Ahmedabad-380004</div>
   <div class="co-sub">GST: 24AOXPM5482M1Z0 &nbsp;|&nbsp; Tel: 9825562702 / 8200647440 &nbsp;|&nbsp; Email: ktlsyogesh114@gmail.com</div>

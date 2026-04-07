@@ -7,7 +7,7 @@ export const styles = {
   nav: { position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, background: C.dark, borderBottom: `2px solid ${C.brown}`, height: 64 },
   navInner: { maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: "100%" },
   navBrand: { display: "flex", alignItems: "center", gap: 12, cursor: "pointer" },
-  navLogo: { width: 40, height: 40, background: C.brown, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 16, borderRadius: 6, fontFamily: "Georgia, serif" },
+  navLogo: { width: 40, height: 40, background: "transparent", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 16, borderRadius: 6, fontFamily: "Georgia, serif" },
   navName: { color: "#fff", fontWeight: 700, fontSize: 16, fontFamily: "'Playfair Display', Georgia, serif" },
   navSub: { color: C.gold, fontSize: 11 },
   navLinks: { display: "flex", gap: 4, alignItems: "center" },
@@ -143,7 +143,7 @@ export const styles = {
 
   // ADMIN
   loginBox: { maxWidth: 420, margin: "80px auto", background: "#fff", border: `1px solid ${C.border}`, borderRadius: 16, padding: 40, textAlign: "center" },
-  loginLogo: { width: 64, height: 64, background: C.brown, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 24, borderRadius: 12, margin: "0 auto 16px", fontFamily: "Georgia, serif" },
+  loginLogo: { width: 64, height: 64, background: "transparent", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 24, borderRadius: 12, margin: "0 auto 16px", fontFamily: "Georgia, serif" },
   loginTitle: { fontSize: 22, fontWeight: 700, color: C.dark, marginBottom: 6 },
   loginSub: { fontSize: 13, color: "#888", marginBottom: 24 },
   adminHeader: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 24px", background: "#fff", borderBottom: `1px solid ${C.border}` },
@@ -174,7 +174,7 @@ export const styles = {
   footer: { background: C.dark, color: "#ccc", padding: "60px 24px 0" },
   footerInner: { maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "2fr 1fr 2fr 1fr", gap: 40, paddingBottom: 40 },
   footerBrand: { },
-  footerLogo: { width: 48, height: 48, background: C.brown, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 18, borderRadius: 8, marginBottom: 10, fontFamily: "Georgia, serif" },
+  footerLogo: { width: 48, height: 48, background: "transparent", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 18, borderRadius: 8, marginBottom: 10, fontFamily: "Georgia, serif" },
   footerName: { fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, color: "#fff", fontWeight: 700, marginBottom: 4 },
   footerSub: { fontSize: 12, color: C.gold, marginBottom: 12 },
   footerDesc: { fontSize: 13, color: "#aaa", lineHeight: 1.7 },

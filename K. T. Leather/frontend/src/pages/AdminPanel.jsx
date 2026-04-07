@@ -194,7 +194,9 @@ export function AdminPanel({ onLogin, onLogout }) {
   if (!loggedIn) return (
     <div style={styles.page}>
       <div style={styles.loginBox}>
-        <div style={styles.loginLogo}>KT</div>
+        <div style={styles.loginLogo}>
+          <img src="/logo.png" alt="KT Logo" style={{ width: "100%", height: "100%", objectFit: "contain", borderRadius: "inherit" }} />
+        </div>
         <h2 style={styles.loginTitle}>Admin Login</h2>
         <p style={styles.loginSub}>K.T. Leather Store Management Panel</p>
         
