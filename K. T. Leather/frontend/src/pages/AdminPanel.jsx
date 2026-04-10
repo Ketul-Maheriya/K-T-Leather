@@ -25,6 +25,12 @@ export function AdminPanel({ onLogin, onLogout }) {
   const [loadingEnq, setLoadingEnq] = useState(false);
   const [loadingBills, setLoadingBills] = useState(false);
   const [savingBill, setSavingBill] = useState(false);
+  const [reportMonth, setReportMonth] = useState(() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+  });
+  const [reportData, setReportData] = useState({ bills: [], totalRevenue: 0 });
+  const [loadingReport, setLoadingReport] = useState(false);
 
   const [bill, setBill] = useState({
     billNo: `KT/${new Date().getFullYear()}/001`,
@@ -144,12 +150,36 @@ export function AdminPanel({ onLogin, onLogout }) {
     } finally { setLoadingBills(false); }
   };
 
+  const fetchReport = async () => {
+    setLoadingReport(true);
+    try {
+      const [year, month] = reportMonth.split("-");
+      const lastDay = new Date(year, month, 0).getDate();
+      const from = `${year}-${month}-01`;
+      const to = `${year}-${month}-${lastDay}`;
+      
+      const res = await fetch(`/api/bills?from=${from}&to=${to}&limit=1000`, { headers: authHdr() });
+      const data = await res.json();
+      if (!res.ok) {
+        setReportData({ bills: [], totalRevenue: 0 });
+        return;
+      }
+      const billsData = data.bills || [];
+      const totalRevenue = billsData.reduce((sum, b) => sum + (b.grandTotal || 0), 0);
+      setReportData({ bills: billsData, totalRevenue });
+    } catch (err) {
+      console.error("Report fetch error:", err);
+      setReportData({ bills: [], totalRevenue: 0 });
+    } finally { setLoadingReport(false); }
+  };
+
   useEffect(() => {
     if (!loggedIn) return;
     if (tab === "enquiries") fetchEnquiries();
     if (tab === "bills") fetchBills();
     if (tab === "dashboard") fetchDashboard(token);
-  }, [tab, loggedIn]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (tab === "report") fetchReport();
+  }, [tab, loggedIn, reportMonth]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const addItem = () => setBill(b => ({ ...b, items: [...b.items, { product: "", qty: 1, rate: 0 }] }));
   const removeItem = i => setBill(b => ({ ...b, items: b.items.filter((_, idx) => idx !== i) }));
@@ -270,6 +300,7 @@ export function AdminPanel({ onLogin, onLogout }) {
     { id: "bills", label: "🗂 Bill History" },
     { id: "enquiries", label: "📬 Enquiries" },
     { id: "products", label: "🏪 Products" },
+    { id: "report", label: "📅 Monthly Report" },
   ];
 
   return (
@@ -446,6 +477,104 @@ export function AdminPanel({ onLogin, onLogout }) {
               </tr>
             ))}</tbody>
           </table>
+        </div>
+      )}
+
+      {tab === "report" && (
+        <div style={styles.billSection}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+            <h3 style={styles.billTitle}>📅 Monthly Report</h3>
+            <div style={{ display: "flex", gap: 10 }}>
+              <input type="month" style={styles.input} value={reportMonth} onChange={e => setReportMonth(e.target.value)} />
+              <button style={styles.btnSmall} onClick={fetchReport}>🔄 Fetch</button>
+            </div>
+          </div>
+          
+          {loadingReport ? <p style={{ color: "#888" }}>Loading report...</p> : (
+            <>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 20, marginBottom: 32 }}>
+                <div style={{ background: "#fff", border: "1px solid #e8d5c0", borderRadius: 12, padding: 24, textAlign: "center" }}>
+                  <div style={{ fontSize: 36, marginBottom: 10 }}>🧾</div>
+                  <div style={{ fontSize: 28, fontWeight: 800, color: "#5c2d09", fontFamily: "Georgia,serif" }}>{reportData.bills.length}</div>
+                  <div style={{ fontSize: 13, color: "#888", marginTop: 4 }}>Bills Generated</div>
+                </div>
+                <div style={{ background: "#fff", border: "1px solid #e8d5c0", borderRadius: 12, padding: 24, textAlign: "center" }}>
+                  <div style={{ fontSize: 36, marginBottom: 10 }}>💰</div>
+                  <div style={{ fontSize: 28, fontWeight: 800, color: "#2e7d32", fontFamily: "Georgia,serif" }}>₹{reportData.totalRevenue.toLocaleString("en-IN")}</div>
+                  <div style={{ fontSize: 13, color: "#888", marginTop: 4 }}>Total Revenue</div>
+                </div>
+              </div>
+              
+              <h4 style={{ ...styles.itemsTitle, marginTop: 20 }}>Bills in {reportMonth}</h4>
+              {reportData.bills.length === 0 ? <p style={{ color: "#888" }}>No bills found for this month.</p> : (
+                <div style={{ overflowX: "auto" }}>
+                  <table style={styles.itemsTable}>
+                    <thead><tr style={styles.itemsHead}>
+                      <th style={styles.th}>Bill No</th><th style={styles.th}>Company</th><th style={styles.th}>Date</th><th style={styles.th}>Grand Total</th>
+                    </tr></thead>
+                    <tbody>{reportData.bills.map(b => (
+                      <tr key={b._id}>
+                        <td style={styles.td}><strong>{b.billNo}</strong></td>
+                        <td style={styles.td}>{b.companyName}</td>
+                        <td style={styles.td}>{b.date}</td>
+                        <td style={{ ...styles.td, fontWeight: 700, color: "#2e7d32" }}>₹{(b.grandTotal || 0).toLocaleString("en-IN")}</td>
+                      </tr>
+                    ))}</tbody>
+                  </table>
+                </div>
+              )}
+              
+              <button 
+                style={{ ...styles.btnPrimary, marginTop: 20 }} 
+                onClick={() => {
+                  const printContents = `
+                    <html>
+                      <head>
+                        <title>Monthly Report - ${reportMonth}</title>
+                        <style>
+                          body { font-family: sans-serif; padding: 20px; }
+                          table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                          th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+                          th { background: #f4f4f4; }
+                          .right { text-align: right; }
+                        </style>
+                      </head>
+                      <body>
+                        <h2>K.T. Leather Store - Monthly Report (${reportMonth})</h2>
+                        <p><strong>Total Bills:</strong> ${reportData.bills.length}</p>
+                        <p><strong>Total Revenue:</strong> Rs. ${reportData.totalRevenue.toLocaleString("en-IN")}</p>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Bill No</th>
+                              <th>Company</th>
+                              <th>Date</th>
+                              <th>Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            ${reportData.bills.map(b => `
+                              <tr>
+                                <td>${b.billNo}</td>
+                                <td>${b.companyName}</td>
+                                <td>${b.date}</td>
+                                <td>Rs. ${(b.grandTotal || 0).toLocaleString("en-IN")}</td>
+                              </tr>
+                            `).join('')}
+                          </tbody>
+                        </table>
+                      </body>
+                    </html>
+                  `;
+                  const w = window.open("", "_blank");
+                  if (w) { w.document.write(printContents); w.document.close(); w.print(); }
+                }}
+                disabled={reportData.bills.length === 0}
+              >
+                🖨 Print / Download Report
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>
