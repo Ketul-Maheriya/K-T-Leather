@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import { styles } from "../styles/theme";
 import { COMPANY } from "../constants/data";
 
@@ -114,8 +115,12 @@ export function EnquiryPage({ preProduct }) {
           <div style={styles.enquirySide}>
             <div style={styles.enquirySideCard}>
               <h4 style={styles.sideCardTitle}>Quick Contact</h4>
-              <a href={`https://wa.me/${COMPANY.whatsapp}`} target="_blank" style={styles.waBtn}>💬 WhatsApp Us</a>
-              <a href={`tel:${COMPANY.phone1}`} style={styles.callBtn}>📞 Call Now</a>
+              <a href={`https://wa.me/${COMPANY.whatsapp}`} target="_blank" rel="noreferrer" style={styles.waBtn} aria-label="WhatsApp">
+                <FaWhatsapp size={18} style={{ marginRight: 8 }} /> WhatsApp Us
+              </a>
+              <a href={`tel:${COMPANY.phone1}`} style={styles.callBtn} aria-label="Call">
+                <FaPhoneAlt size={18} style={{ marginRight: 8 }} /> Call Now
+              </a>
             </div>
             <div style={styles.enquirySideCard}>
               <h4 style={styles.sideCardTitle}>What We Offer</h4>

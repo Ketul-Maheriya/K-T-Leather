@@ -1,3 +1,4 @@
+import { FaWhatsapp } from "react-icons/fa";
 import { styles } from "../styles/theme";
 import { COMPANY } from "../constants/data";
 
@@ -27,7 +28,15 @@ export function ContactPage() {
               <a href={`tel:${COMPANY.phone1}`} style={styles.contactLink}>+91 {COMPANY.phone1}</a><br />
               <a href={`tel:${COMPANY.phone2}`} style={styles.contactLink}>+91 {COMPANY.phone2}</a>
               <div style={{ marginTop: 12 }}>
-                <a href={`https://wa.me/${COMPANY.whatsapp}`} target="_blank" rel="noreferrer" style={styles.waBtn}>💬 Chat on WhatsApp</a>
+                <a
+                  href={`https://wa.me/${COMPANY.whatsapp}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={styles.waBtn}
+                  aria-label="Chat on WhatsApp"
+                >
+                  <FaWhatsapp size={18} style={{ marginRight: 8 }} /> Chat on WhatsApp
+                </a>
               </div>
             </div>
           </div>
