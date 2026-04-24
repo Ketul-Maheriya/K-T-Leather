@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { styles } from "../styles/theme";
 import { COMPANY } from "../constants/data";
 
-export function Footer({ setPage }) {
+export function Footer() {
+  const navigate = useNavigate();
   return (
     <footer style={styles.footer}>
       <div style={styles.footerInner}>
@@ -15,8 +17,15 @@ export function Footer({ setPage }) {
         </div>
         <div>
           <div style={styles.footerSectionTitle}>Quick Links</div>
-          {["home", "about", "products", "gallery", "enquiry", "contact"].map(p => (
-            <div key={p} style={styles.footerLink} onClick={() => setPage(p)}>{p.charAt(0).toUpperCase() + p.slice(1)}</div>
+          {[
+            { label: "Home", path: "/" },
+            { label: "About", path: "/about" },
+            { label: "Products", path: "/products" },
+            { label: "Gallery", path: "/gallery" },
+            { label: "Enquiry", path: "/enquiry" },
+            { label: "Contact", path: "/contact" },
+          ].map(item => (
+            <div key={item.path} style={styles.footerLink} onClick={() => navigate(item.path)}>{item.label}</div>
           ))}
         </div>
         <div>
@@ -30,13 +39,12 @@ export function Footer({ setPage }) {
         <div>
           <div style={styles.footerSectionTitle}>Products</div>
           {["Corporate Uniforms", "Safety Equipment", "Safety Shoes", "Corporate Gifts", "Leather & Rexine", "Upholstery Material"].map(p => (
-            <div key={p} style={styles.footerLink} onClick={() => setPage("products")}>{p}</div>
+            <div key={p} style={styles.footerLink} onClick={() => navigate("/products")}>{p}</div>
           ))}
         </div>
       </div>
       <div style={styles.footerBottom}>
         <span>© {new Date().getFullYear()} K.T. Leather Store. All rights reserved. Proprietor: Yogesh Chandrakantbhai Makwana</span>
-        {/* <span style={{ marginLeft: 16, cursor: "pointer", opacity: 0.6 }} onClick={() => setPage("admin")}>Admin</span> */}
       </div>
     </footer>
   );

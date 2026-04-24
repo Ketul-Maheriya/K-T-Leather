@@ -59,8 +59,8 @@ export function ContactPage() {
             </div>
             <div style={styles.contactCard}>
               <h3 style={styles.contactCardTitle}>🌐 Google Business</h3>
-              <p style={styles.contactText}>Find us on Google Maps by searching <strong>"K.T. Leather Store Shahibaug Ahmedabad"</strong>. For registration help, contact your web administrator.</p>
-              <a href="https://business.google.com" target="_blank" rel="noreferrer" style={{...styles.btnPrimary, display: "inline-block"}}>Register on Google →</a>
+              <p style={styles.contactText}>Find us on Google Maps by searching <strong>"K.T. Leather Store Shahibaug Ahmedabad"</strong>.</p>
+              {/* <a href="https://business.google.com" target="_blank" rel="noreferrer" style={{...styles.btnPrimary, display: "inline-block"}}>Register on Google →</a> */}
             </div>
           </div>
         </div>

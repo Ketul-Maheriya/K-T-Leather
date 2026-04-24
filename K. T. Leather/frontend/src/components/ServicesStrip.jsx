@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { styles } from "../styles/theme";
 
-export function ServicesStrip({ setPage }) {
+export function ServicesStrip() {
+  const navigate = useNavigate();
   const services = [
     { icon: "👔", label: "Corporate Uniforms", sub: "All colors, sizes & fabrics" },
     { icon: "⛑️", label: "Safety Equipment", sub: "ISI certified products" },
@@ -17,7 +19,7 @@ export function ServicesStrip({ setPage }) {
       </div>
       <div style={styles.servicesGrid}>
         {services.map(s => (
-          <div key={s.label} style={styles.serviceCard} onClick={() => setPage("products")}>
+          <div key={s.label} style={styles.serviceCard} onClick={() => navigate("/products")}>
             <div style={styles.serviceIcon}>{s.icon}</div>
             <div style={styles.serviceLabel}>{s.label}</div>
             <div style={styles.serviceSub}>{s.sub}</div>

@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { styles } from "../styles/theme";
 
-export function Hero({ setPage }) {
+export function Hero() {
+  const navigate = useNavigate();
   return (
     <section style={styles.hero}>
       <div style={styles.heroOverlay} />
@@ -8,14 +10,14 @@ export function Hero({ setPage }) {
         <div style={styles.heroBadge}>Established 1965 · Ahmedabad</div>
         <h1 style={styles.heroTitle}>
           Premium Corporate<br />
-          <span style={styles.heroAccent}>Uniforms & Leather</span>
+          <span style={styles.heroAccent}>Uniforms & Gifts</span>
         </h1>
         <p style={styles.heroSub}>
           Trusted by 500+ corporate clients across Gujarat. From bespoke uniforms to safety equipment, leather upholstery & corporate gifting.
         </p>
         <div style={styles.heroActions}>
-          <button style={styles.btnPrimary} onClick={() => setPage("products")}>Explore Products</button>
-          <button style={styles.btnOutline} onClick={() => setPage("enquiry")}>Request a Quote</button>
+          <button style={styles.btnPrimary} onClick={() => navigate("/products")}>Explore Products</button>
+          <button style={styles.btnOutline} onClick={() => navigate("/enquiry")}>Request a Quote</button>
         </div>
         <div style={styles.heroStats}>
           {[["60+", "Years Experience"], ["500+", "Corporate Clients"], ["8", "Product Categories"], ["10K+", "Units Delivered"]].map(([n, l]) => (

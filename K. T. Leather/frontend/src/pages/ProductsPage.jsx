@@ -3,10 +3,10 @@ import { styles } from "../styles/theme";
 import { PRODUCTS, CATEGORIES } from "../constants/data";
 import { ProductCard } from "../components/ProductCard";
 
-export function ProductsPage({ setPage, setEnquiryProduct }) {
+export function ProductsPage({ onEnquire }) {
   const [cat, setCat] = useState("all");
   const filtered = cat === "all" ? PRODUCTS : PRODUCTS.filter(p => p.category === cat);
-  const handleEnquire = (name) => { setEnquiryProduct(name); setPage("enquiry"); };
+
   return (
     <div style={styles.page}>
       <div style={styles.pageHero}>
@@ -21,7 +21,7 @@ export function ProductsPage({ setPage, setEnquiryProduct }) {
           ))}
         </div>
         <div style={styles.productsGrid}>
-          {filtered.map(p => <ProductCard key={p.id} product={p} onEnquire={handleEnquire} />)}
+          {filtered.map(p => <ProductCard key={p.id} product={p} onEnquire={onEnquire} />)}
         </div>
       </div>
     </div>
